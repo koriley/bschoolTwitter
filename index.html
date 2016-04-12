@@ -60,8 +60,12 @@
                 //alert(numTweets);
             });
             setInterval(function () { 
-                jQuery.get('twitter_json.php?number=' + numTweets, function (data) {
-                    jQuery('#mother').append(data);
+                
+                
+             //jQuery.get('twitter_json.php?number=' + numTweets, function (data) {
+                 jQuery.get('twitter_json.php?number=null', function (data) {
+                   // jQuery('#mother').append(data);
+                   jQuery('#mother').html(data);
                     numTweets = jQuery('.tweetMotherDiv').length;
                     //random pop up
                     var popUpPercent = Math.floor((Math.random() * 100) + 1);
@@ -85,7 +89,7 @@
 
             }, 15000);
             //this auto scrolls the page.
-            var div = $('#mother');
+          /*  var div = $('#mother');
             setInterval(function () {
                 var pos = div.scrollTop();
                 div.scrollTop(pos + 2);
@@ -94,7 +98,7 @@
                 //alert("bottom!");
                 //window.scrollTo(0, 0);
                 // }
-            }, 200);
+            }, 200);*/
 
 
         </script>
