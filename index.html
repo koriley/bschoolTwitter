@@ -53,52 +53,58 @@
             docHeight = docHeight - 150;
             jQuery('#mother').css({'height': docHeight + 'px'});
             var numTweets;
+            var popUp = 0; //this is to stop the refresh if there is a popup displayed.
             // var tweetOffset;
             //this is to load the json
-            jQuery('#mother').load('twitter_json.php?number=null', function () {
-                numTweets = jQuery('.tweetMotherDiv').length;
-                //alert(numTweets);
-            });
-            setInterval(function () { 
-                
-                
-             //jQuery.get('twitter_json.php?number=' + numTweets, function (data) {
-                 jQuery.get('twitter_json.php?number=null', function (data) {
-                   // jQuery('#mother').append(data);
-                   jQuery('#mother').html(data);
+            // console.log(popUp);
+            if (popUp === 0) {
+                jQuery('#mother').load('twitter_json.php?number=null', function () {
                     numTweets = jQuery('.tweetMotherDiv').length;
-                    //random pop up
-                    var popUpPercent = Math.floor((Math.random() * 100) + 1);
-                    console.log(popUpPercent);
-                     //this is the percentage
-                    if (popUpPercent <= 25) {
-                        //the number in the if, is basically how often a pop up might occure. in percentage
-                        var popUpDiv = Math.floor((Math.random() * numTweets) + 1);
-                        // echo $popUpDiv;
- 
- 
-                        koPopUp('iam' + popUpDiv, 'no'); 
-                        
-                        setInterval(function(){
-                            jQuery('.iam' + popUpDiv+'_clickRemove').remove();
-            jQuery('#iam' + popUpDiv+'_greyOut').remove();
-                        }, 10000); 
-
-                    }
+                    //alert(numTweets);
                 });
+                setInterval(function () {
 
-            }, 15000);
+
+                    //jQuery.get('twitter_json.php?number=' + numTweets, function (data) {
+                    jQuery.get('twitter_json.php?number=null', function (data) {
+                        // jQuery('#mother').append(data);
+                        jQuery('#mother').html(data);
+                        numTweets = jQuery('.tweetMotherDiv').length;
+                        //random pop up
+                        var popUpPercent = Math.floor((Math.random() * 100) + 1);
+                        //console.log(popUpPercent);
+                        //this is the percentage
+                        if (popUpPercent <= 25) {
+                            //the number in the if, is basically how often a pop up might occure. in percentage
+                            var popUpDiv = Math.floor((Math.random() * numTweets) + 1);
+                            // echo $popUpDiv;
+                            popUp = 1;
+                            //console.log(popUp);
+                            koPopUp('iam' + popUpDiv, 'no');
+
+                            setInterval(function () {
+                                jQuery('.iam' + popUpDiv + '_clickRemove').remove();
+                                jQuery('#iam' + popUpDiv + '_greyOut').remove();
+                                popUp = 0;
+                                //console.log(popUp);
+                            }, 10000);
+
+                        }
+                    });
+
+                }, 15000);
+            }
             //this auto scrolls the page.
-          /*  var div = $('#mother');
-            setInterval(function () {
-                var pos = div.scrollTop();
-                div.scrollTop(pos + 2);
-
-                // if(jQuery(window).scrollTop() + jQuery(window).height() === jQuery(document).height()) {
-                //alert("bottom!");
-                //window.scrollTo(0, 0);
-                // }
-            }, 200);*/
+            /*  var div = $('#mother');
+             setInterval(function () {
+             var pos = div.scrollTop();
+             div.scrollTop(pos + 2);
+             
+             // if(jQuery(window).scrollTop() + jQuery(window).height() === jQuery(document).height()) {
+             //alert("bottom!");
+             //window.scrollTo(0, 0);
+             // }
+             }, 200);*/
 
 
         </script>
